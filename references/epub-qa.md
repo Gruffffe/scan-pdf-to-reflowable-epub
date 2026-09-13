@@ -36,11 +36,15 @@ Render or preview representative locations:
 - ordinary Chinese prose crossing a source-page boundary;
 - ordinary English or mixed-language prose;
 - a numbered list and a digit that must not become a note;
+- a multi-line numbered item, plus a numbered subheading whose following body must remain separate;
+- a paragraph or list item continuing across a source-page anchor;
 - a confirmed note link and an unresolved note candidate;
 - an image/caption or other complex page;
 - the final body page and back cover.
 
 Check font size, indentation, paragraph spacing, line wrapping, heading hierarchy, image scaling, orphan artifacts, and whether page anchors disturb reflow.
+
+For a reported reflow defect, render the exact repaired location and at least one counterexample affected by the same rule. When XHTML fragments are copied into a standalone HTML preview, serialize non-void elements such as page-break `<span>` anchors with explicit closing tags; HTML parsing of `<span/>` can hide following text and create a false failure.
 
 ## Report
 

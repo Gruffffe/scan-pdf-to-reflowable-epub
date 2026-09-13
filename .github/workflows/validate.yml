@@ -33,3 +33,6 @@ jobs:
 
       - name: Run synthetic EPUB smoke test
         run: python tests/smoke_test.py
+
+      - name: Run reflow-audit regression test
+        run: python tests/reflow_audit_test.py

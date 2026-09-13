@@ -24,6 +24,8 @@ A heading may wrap across physical lines. Merge those lines into one semantic he
 
 Use coordinates, line baselines, indentation, vertical gaps, font-size proxies, punctuation, and page continuity. Join lines when they form one syntactic unit; preserve a break for headings, lists, block quotations, verse, tables, captions, notes, and references.
 
+Do not classify each OCR row independently. Maintain the active block role and require stronger evidence to leave it. In particular, a numbered item's hanging-indent continuation is often farther right than an ordinary first-line indent; indentation alone must not split it. Conversely, a short numbered subheading followed by a visibly larger gap and normally indented prose must not absorb that prose. Read [paragraph-and-list-reconstruction.md](paragraph-and-list-reconstruction.md) for the decision model and repair procedure.
+
 Join a page's final line to the next page only when all of these hold:
 
 - neither page is a structural boundary;
@@ -32,6 +34,8 @@ Join a page's final line to the next page only when all of these hold:
 - there is no heading, list reset, note block, or illustration boundary.
 
 Keep a source-page event even when a paragraph continues. Put the page-break anchor at the exact transition inside the paragraph rather than moving it before or after the whole paragraph.
+
+Calibrate gaps and indents against the current page family or book. Prefer ratios and distributions over universal coordinate thresholds. Test a positive continuation case and a negative numbered-subheading case before applying a rule globally.
 
 ## Furniture and noise
 

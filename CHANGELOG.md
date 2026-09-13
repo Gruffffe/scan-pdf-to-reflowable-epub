@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented here.
 
+## Unreleased
+
+- Add stateful paragraph and numbered-block reconstruction guidance.
+- Distinguish hanging-indent list continuations from numbered subheadings by
+  combining syntax, relative indentation, typography, and vertical gaps.
+- Document inline cross-page anchors and the XHTML-to-HTML preview trap.
+- Add a conservative reflow-candidate audit and regression tests.
+
 ## 0.1.0 - 2026-09-13
 
 - Publish the evidence-first PDF diagnosis and page-role workflow.
