@@ -1,0 +1,32 @@
+name: Bug report
+description: Report a reproducible problem using synthetic or non-private material
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: Do not upload copyrighted books, private OCR output, credentials, or personal paths.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem
+      description: What happened, and what did you expect instead?
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Use synthetic text or a freely shareable sample.
+    validations:
+      required: true
+  - type: input
+    id: platform
+    attributes:
+      label: Platform and tool versions
+      placeholder: macOS 15, Python 3.10, EbookLib 0.20
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation output
+      description: Paste non-sensitive output from repo_check, validate_epub, or EPUBCheck.

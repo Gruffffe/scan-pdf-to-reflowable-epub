@@ -1,0 +1,25 @@
+.DS_Store
+Thumbs.db
+
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+.env
+.env.*
+!.env.example
+
+# Task-local source material and generated books must not enter this repository.
+work/
+output/
+tmp/
+*.pdf
+*.epub
+*.azw3
+*.mobi
+*.ocr.json
+*.fingerprint.json

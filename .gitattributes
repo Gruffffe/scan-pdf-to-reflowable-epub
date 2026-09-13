@@ -1,0 +1,8 @@
+* text=auto eol=lf
+*.pdf binary
+*.epub binary
+*.azw3 binary
+*.mobi binary
+*.jpg binary
+*.jpeg binary
+*.png binary

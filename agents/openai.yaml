@@ -1,0 +1,4 @@
+interface:
+  display_name: Scan PDF to EPUB
+  short_description: Rebuild scanned or text PDFs as audited reflowable EPUBs
+  default_prompt: Convert this legally readable PDF into a searchable, reflowable EPUB. Default to structure-only editing unless textual correction is authorized. Diagnose the text layer, map page roles and chapter boundaries from the printed source, preserve the cover and bilingual organization, distinguish notes from body numbering, audit visible-text preservation, validate links and EPUB structure, visually sample difficult pages, and report known limitations.

@@ -1,0 +1,24 @@
+name: Feature request
+description: Propose a reusable workflow, reference, or validation improvement
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: use_case
+    attributes:
+      label: General use case
+      description: Describe the publication pattern or conversion problem without private book data.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Source evidence or standard
+      description: Link to a public specification or describe a synthetic example.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: How can the improvement be tested objectively?
+    validations:
+      required: true
