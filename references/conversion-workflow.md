@@ -9,7 +9,7 @@ This reference captures reusable lessons from converting text-layer and scanned 
 3. Choose `structure-only` or `ocr-correction` mode.
 4. Preserve page identities through OCR and normalization. Do not flatten the whole book into an untraceable text stream.
 
-Key risk: a PDF can technically contain text while that layer is incomplete, scrambled, duplicated, or unrelated to visible glyphs. Test quality, not only presence.
+Key risk: a PDF can technically contain text while that layer is incomplete, scrambled, duplicated, or unrelated to visible glyphs. Test quality, not only presence. When reusing OCR-derived text or handling complex pages, follow [text-layer-and-complex-pages.md](text-layer-and-complex-pages.md).
 
 ## Phase 2: map the book before cleaning it
 
@@ -32,9 +32,9 @@ Separate three decisions:
 2. Which physical lines belong to the same semantic block?
 3. What EPUB role does the block have?
 
-Do not let a decision at one layer silently rewrite another. In `structure-only` mode, line joining may remove layout whitespace but must not invent words or punctuation.
+Do not let a decision at one layer silently rewrite another. In `structure-only` mode, line joining may remove layout whitespace but must not invent words or punctuation. Keep raw rows until page-family decisions are complete: prose may merge same-baseline fragments, but indexes must be separated into columns before row joining.
 
-Key risks include two-line headings mistaken for two sections, notes merged into body text, list numbers treated as note calls, and English punctuation recognized as digits.
+Key risks include two-line headings mistaken for two sections, notes merged into body text, list numbers treated as note calls, English punctuation recognized as digits, and chart labels flattened into paragraphs. Preserve spatially dependent pages or regions as images when semantic reconstruction would be less faithful.
 
 ## Phase 4: construct EPUB semantics
 
@@ -55,7 +55,7 @@ For bilingual works, preserve sequential or parallel organization as found. Do n
 
 1. Package/link audit: ZIP, OPF, manifest, spine, XHTML, resources, IDs, and targets.
 2. Structural audit: chapter map, navigation, page roles, page anchors, notes, images, and language grouping.
-3. Content audit: source-derived character/text inventory versus output in the declared editing mode.
+3. Content audit: post-classification source-visible sequence versus packaged spine-visible text in the declared editing mode. Prefer an exact normalized match with explicit exclusions for generated elements.
 4. Visual audit: representative rendered pages, including difficult and terminal cases.
 
 Run EPUBCheck, but treat it as syntax and packaging validation. It cannot confirm that a chapter begins on the correct source page, a digit is not a false note, or the wording stayed unchanged.

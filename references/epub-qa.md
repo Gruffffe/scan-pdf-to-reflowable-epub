@@ -23,7 +23,7 @@ Run `scripts/validate_epub.py output.epub --strict --epubcheck /path/to/epubchec
 
 ## Content integrity
 
-In `structure-only` mode, create a source-derived text fingerprint before packaging and compare the result afterward. Ignore only declared layout whitespace and declared generated tokens. Investigate missing, duplicated, reordered, or newly invented visible text.
+In `structure-only` mode, record post-cleanup source-visible text before packaging and compare its normalized sequence with the EPUB using `scripts/compare_text_inventory.py`. Ignore only declared layout whitespace and generated elements. Investigate missing, duplicated, reordered, or newly invented visible text. Also review the deletion ledger: an exact match cannot detect text mistakenly removed before the inventory was recorded.
 
 Fingerprints are an alarm, not proof of semantic correctness. When restructuring intentionally changes generated headings or moves notes, compare logical sections or explain the expected difference in the QA report.
 
@@ -40,6 +40,8 @@ Render or preview representative locations:
 - a paragraph or list item continuing across a source-page anchor;
 - a confirmed note link and an unresolved note candidate;
 - an image/caption or other complex page;
+- a two-column index or bibliography page, checking that entries follow column reading order;
+- the highest-starting ordinary body line, checking that furniture rules did not delete it;
 - the final body page and back cover.
 
 Check font size, indentation, paragraph spacing, line wrapping, heading hierarchy, image scaling, orphan artifacts, and whether page anchors disturb reflow.

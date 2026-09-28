@@ -18,7 +18,7 @@ Rank evidence in this order:
 
 Require at least two independent signals for ambiguous boundaries. Treat a fixed PDF-to-print offset as a convenience, not proof; inserts, Roman-numbered front matter, and missing blank pages often break it.
 
-A heading may wrap across physical lines. Merge those lines into one semantic heading only when font/position, spacing, syntax, and the contents entry agree. This is a markup operation in `structure-only` mode, not permission to change characters.
+A heading may wrap across physical lines. Merge those lines into one semantic heading only when font/position, spacing, syntax, and the contents entry agree. Accumulate consecutive heading rows and emit one heading element; do not promote each physical row separately. OCR maximum span size is weak evidence because one distorted glyph can inflate it. This is a markup operation in `structure-only` mode, not permission to change characters.
 
 ## Paragraph reconstruction
 
@@ -39,7 +39,9 @@ Calibrate gaps and indents against the current page family or book. Prefer ratio
 
 ## Furniture and noise
 
-Detect running heads, running feet, and folios through repetition, location, and style. Delete only the repeated furniture instance, not every matching string. Bottom and corner regions can contain notes, marginalia, captions, or reference continuations.
+Detect running heads, running feet, and folios through repetition, location, and style. Delete only the repeated furniture instance, not every matching string. Record every removed text-bearing row and review sentence-like or unusually long deletions against rendered pages. A fixed edge threshold can erase legitimate continuation lines. Bottom and corner regions can contain notes, marginalia, captions, or reference continuations.
+
+For multi-column indexes, bibliographies, or glossaries, preserve raw rows until columns are assigned. Never merge same-baseline text across a gutter and then attempt to recover columns afterward.
 
 Treat isolated speckles, crop marks, OCR fragments outside the main text region, and blank-page artifacts as noise only after a visual sample check.
 

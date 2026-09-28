@@ -23,13 +23,16 @@ scripts/render_pages.py          页面渲染
 scripts/build_epub.py            从规范化 JSON 构建 EPUB 3
 scripts/validate_epub.py         包、XML、链接、封面和 EPUBCheck 验证
 scripts/text_fingerprint.py       可见文字指纹与不变性比较
+scripts/compare_text_inventory.py 构建前文字清单与 EPUB 顺序一致性比较
 scripts/audit_reflow.py           编号项疑似误断段候选审计
 references/conversion-workflow.md 端到端流程和常见失败模式
+references/text-layer-and-complex-pages.md 文本层、页眉、图表和多栏页面规则
 references/chinese-document-structure.md 中文出版物结构知识
 references/paragraph-and-list-reconstruction.md 段落、列表与跨页续接规则
 references/                      OCR、重建、脚注和 QA 规则
 tests/smoke_test.py              使用合成内容进行 EPUB 构建与验证
 tests/reflow_audit_test.py        编号块误断段回归测试
+tests/content_inventory_test.py   可见文字顺序守恒回归测试
 scripts/repo_check.py            发布前结构、语法、链接与隐私检查
 .github/workflows/validate.yml   GitHub Actions 自动验证
 docs/PUBLISHING.md               GitHub 发布步骤
@@ -66,6 +69,9 @@ GitHub 建仓、网页上传与终端推送的完整说明见
 python3 scripts/inspect_pdf.py input.pdf --json work/inspection.json
 python3 scripts/render_pages.py input.pdf work/pages --dpi 220
 python3 scripts/build_epub.py work/manifest.json output/book.epub
+python3 scripts/compare_text_inventory.py work/source-visible.txt output/book.epub \
+  --exclude-tag h1 --exclude-tag figure --exclude-epub-type pagebreak \
+  --json work/content-inventory.json
 python3 scripts/audit_reflow.py output/book.epub --json work/reflow-audit.json
 python3 scripts/validate_epub.py output/book.epub --strict --json work/validation.json
 python3 scripts/text_fingerprint.py output/book.epub --write work/text-fingerprint.json --ignore-whitespace
@@ -83,7 +89,9 @@ python3 scripts/validate_epub.py output/book.epub --strict --epubcheck /path/to/
 python3 scripts/text_fingerprint.py output/book-v2.epub --compare work/text-fingerprint.json
 ```
 
-注意：指纹应优先从经过核对的规范化源文本建立。若重建时故意删除重复标题、移出封底 OCR 或改变生成文字，需要在 QA 报告中解释差异，不能把指纹相等当作语义校对。
+`compare_text_inventory.py` 用于核对“经过页面分类、页眉页码清理和版面重建后、打包前”的可见文字是否按同一顺序进入 EPUB。排除生成章标题、图像页和页码锚点时必须显式声明。精确匹配能发现打包阶段的漏字、增字和乱序，但不能发现清单建立之前发生的误删，因此仍需审查删除账本和原页抽样。
+
+`text_fingerprint.py` 适合比较两次 EPUB 构建。注意：若重建时故意删除重复标题、移出封底 OCR 或改变生成文字，需要在 QA 报告中解释差异，不能把指纹相等当作语义校对。
 
 `audit_reflow.py` 只报告需要回看扫描版的候选位置，不会自动改书。典型候选是：一个编号段落没有句末标点，却在 XHTML 中紧接着另一个普通段落。它可能是被错误拆开的列表续行，也可能是合法的编号式小标题；必须结合行距、缩进、字体和原页结构判断。
 
@@ -121,7 +129,7 @@ python3 scripts/text_fingerprint.py output/book-v2.epub --compare work/text-fing
 - `css` 或 `css_file`：覆盖默认阅读样式；
 - `cover_href`、`cover_title`：封面资源路径和标签。
 
-所有任务特有的页码、书名、OCR 结果、报告和绝对路径都应留在任务工作目录，不进入这个通用仓库。
+所有任务特有的页码、书名、坐标阈值、OCR 结果、报告和绝对路径都应留在任务工作目录，不进入这个通用仓库。复杂图表可以少量保留为图片，但普通正文仍应保持可搜索、可重排；双栏索引必须先分栏再合并行。
 
 ## 安全边界
 

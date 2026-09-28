@@ -36,3 +36,6 @@ jobs:
 
       - name: Run reflow-audit regression test
         run: python tests/reflow_audit_test.py
+
+      - name: Run content-inventory regression test
+        run: python tests/content_inventory_test.py
