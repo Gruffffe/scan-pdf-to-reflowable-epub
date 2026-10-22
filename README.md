@@ -25,6 +25,7 @@ scripts/validate_epub.py         包、XML、链接、封面和 EPUBCheck 验证
 scripts/text_fingerprint.py       可见文字指纹与不变性比较
 scripts/compare_text_inventory.py 构建前文字清单与 EPUB 顺序一致性比较
 scripts/audit_reflow.py           编号项疑似误断段候选审计
+scripts/inspect_epub_size.py      只读统计 EPUB 资源体积和最大文件
 references/conversion-workflow.md 端到端流程和常见失败模式
 references/text-layer-and-complex-pages.md 文本层、页眉、图表和多栏页面规则
 references/chinese-document-structure.md 中文出版物结构知识
@@ -144,3 +145,15 @@ python3 scripts/text_fingerprint.py output/book-v2.epub --compare work/text-fing
 
 提交改进前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md) 与
 [SECURITY.md](SECURITY.md)。项目采用 [MIT License](LICENSE)。
+
+## 词典与大体积 EPUB
+
+词典和双栏索引的处理见 [词典与多栏排版](references/dictionaries-and-multicolumn.md)。长时间本地 OCR 的分块缓存、恢复与原页链接见 [本地 OCR 与原页链接](references/local-ocr-and-source-links.md)。
+
+压缩前先统计资源：
+
+```bash
+python3 scripts/inspect_epub_size.py input.epub --largest 10
+```
+
+扫描图与音标图片的无损编码、完整扫描对照版与轻量阅读版的取舍及验证见 [EPUB 体积优化](references/epub-size-optimization.md)。该检查统计文件体积，不测量阅读器运行内存。

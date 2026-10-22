@@ -4,6 +4,12 @@ All notable changes to this project will be documented here.
 
 ## Unreleased
 
+- Add dictionary/index reconciliation, multicolumn correction, wrapped headword and IPA preservation guidance.
+- Document resumable local OCR, source-link editions, and independent content-coverage audits.
+- Add native bilevel PNG and exact grayscale image optimization guidance, including explicit pixel-equality baselines.
+- Explain lightweight scan-appendix removal, manifest/link updates, and shared-target NCX ordering.
+- Add the read-only `scripts/inspect_epub_size.py` resource inventory command.
+
 - Add an OCR-text-layer and complex-page reconstruction guide covering audited
   running-head removal, multi-line headings, selective image preservation,
   column-first index ordering, and conservative dehyphenation.
